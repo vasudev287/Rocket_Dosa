@@ -22,7 +22,7 @@ Memory_Layer_controller controller(
 	en_connection,en_2min,X_c,C_c,W_c,T_c,M_c,RD_WR_c,
 	mux1,mux2,mux3,mux4,mux5,mux6,demux);	  
 	
-Memory_Layer_datapath(
+Memory_Layer_datapath data_path(
 	clk,x,c, ld_upcounter,en_upcounter,en_node_counter,en_connection,en_2min,learning_done,
 	X_c,C_c,W_c,T_c,M_c,RD_WR_c,
 	mux1,mux2,mux3,mux4,mux5,mux6,demux,comparator);    

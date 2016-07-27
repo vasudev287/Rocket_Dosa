@@ -12,7 +12,7 @@ always_comb
 begin  
 	overflow= (a[array_length -1] & b[array_length -1]) ;   //changed     
 	 c =  a+ b;         
-	assert (overflow != 1) $display ("Overflow occured");	
+	assert (overflow == 1) $display ("Overflow occured");	
 end   	  
  
 

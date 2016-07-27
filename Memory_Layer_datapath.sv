@@ -37,7 +37,7 @@ int out_ED;
 
 //////////////////////////////////////////////////////////////////////////
 //assignig inputs and outputs to signals
-always@(x,c,out_demux[1],out_demux[2],Reg_Ths1,Reg_Ms1,Reg_Cx,Reg_min1_ED) 
+always@(x,c,out_demux[1],out_demux[2],Reg_Ths1,Reg_Ms1,Reg_Cx,Reg_min1_ED,NODE_COUNT) 
 begin
 Reg_x<=x;  
 Reg_Cx<=c;
@@ -68,7 +68,7 @@ Memory_Layer_connection_memory conn_mem (
 	Reg_min1_node,Reg_min2_node,Reg_Cx,
 	en_connection,learning_done);  	
 			
-Memory_Layer_node_counter(
+Memory_Layer_node_counter node_counter(
 	Reg_Cx, en_node_counter,in_mux[1][0]);    
               
 comparator comp (out_mux[5],out_mux[6],comparator_c);     
@@ -82,7 +82,7 @@ mux mux1(in_mux[1][0],in_mux[1][1],in_mux[1][2],in_mux[1][3],out_mux[1],mux1_sel
 mux_W mux2(in_mux2[0],in_mux2[1],in_mux2[2],in_mux2[3],out_mux2,mux2_sel);   
 mux mux3(in_mux[3][0],in_mux[3][1],in_mux[3][2],in_mux[3][3],out_mux[3],mux3_sel);
 mux mux4(in_mux[4][0],in_mux[4][1],in_mux[4][2],in_mux[4][3],out_mux[4],mux4_sel);
-mux mux5(in_mux[5][0],in_mux[5][1],in_mux[5][2],in_mux[5][3],out_mux[5],mux5_sel);
+mux mux5(in_mux[5][0],in_mux[1][1],in_mux[5][2],in_mux[5][3],out_mux[5],mux5_sel);
 mux mux6(in_mux[6][0],in_mux[6][1],in_mux[6][2],in_mux[6][3],out_mux[6],mux6_sel); 
 
 
