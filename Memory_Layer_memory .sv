@@ -21,8 +21,6 @@ begin
 // read/written to when always_comb executes before start of sim
 if(RD_WR_c==READ)            
 	begin     
-	if(X_c==1) 
-	X_o= memory.classes[class_i].node[node_i].X ; 
 	if(C_c==1) 
 	class_o=memory.classes[class_i].class_name;    
 	if(W_c==1) 
