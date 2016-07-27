@@ -37,7 +37,7 @@ int out_ED;
 
 //////////////////////////////////////////////////////////////////////////
 //assignig inputs and outputs to signals
-always@(x,c,out_demux[1],out_demux[2],Reg_Ths1,Reg_Ms1,Reg_Cx,Reg_min1_ED,NODE_COUNT) 
+always@(x,c,out_demux[1],out_demux[2],Reg_Ths1,Reg_Ms1,Reg_Cx,Reg_min1_ED)   
 begin
 Reg_x<=x;  
 Reg_Cx<=c;
@@ -46,7 +46,6 @@ Reg_Ws1<=out_demux[1];Reg_Ws2<=out_demux[2];
 in_mux[5][2]<=Reg_Ths1;
 in_mux[4][1]<=Reg_Ms1+1;  
 in_mux[6][0]<=Reg_Cx;
-in_mux[6][1]<=NODE_COUNT; 
 in_mux[6][2]<=Reg_min1_ED;   
 end   
  
@@ -69,7 +68,7 @@ Memory_Layer_connection_memory conn_mem (
 	en_connection,learning_done);  	
 			
 Memory_Layer_node_counter node_counter(
-	Reg_Cx, en_node_counter,in_mux[1][0]);    
+	Reg_Cx, en_node_counter,in_mux[1][0],in_mux[6][1]);      
               
 comparator comp (out_mux[5],out_mux[6],comparator_c);     
 
