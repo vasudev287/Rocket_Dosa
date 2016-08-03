@@ -56,7 +56,7 @@ int node_count[CLASS_COUNT:1];
 
 /////////connection memory structure/////////// 
 typedef struct{  
-logic connection_presence;
+logic connection_presence;  
 int age;  
 }single_node_connection_T;    
   
@@ -64,6 +64,28 @@ typedef struct {
 single_node_connection_T connection[CLASS_COUNT:1][NODE_COUNT:1][NODE_COUNT:1]; 
 }connection_mem_T ; 
  ///////////////////////////////////////////// 
+ ////associate layer//////////////////////////////////////////////////////
+typedef struct{
+int class_name;
+int m;  //assoc index of node 
+node_vector_T W;
+int response_class[NODE_COUNT:0];   
+}AL_node_T;   //node associate Layer      
 
-memory_T memory;           
+/////////connection memory structure/////////// 
+typedef struct{   
+logic connection_presence;
+int weight;  
+}AL_single_node_connection_T;    
+ /////////////////////////////////////////////
+ 
+typedef struct{      
+AL_node_T node[CLASS_COUNT:1];  
+AL_single_node_connection_T connection[CLASS_COUNT:1][CLASS_COUNT:1];   //connection set  
+}AL_memory_T;   
+    
+   
+ /////////////////////////////////////////////////////////////////////////
+ memory_T memory;    //memory Later Memory 
+AL_memory_T AL_memory;   //associative layer memory  
  endpackage:GAM_package     
