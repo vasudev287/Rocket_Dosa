@@ -33,7 +33,7 @@ int clk_period=10;
 
 initial 
 begin
-#(clk_period/2) clk=~clk;   
+forever #(clk_period/2) clk=~clk;   
 end 
 
 //inputs   
@@ -56,7 +56,7 @@ x=input_node_set[1][3];
 
 #(10*clk_period)  
 learning_done=1;    
-
+$stop();
 end
 
 
@@ -70,7 +70,7 @@ begin
 input_node_set[1][1]= 128'd1234;       //16x8  
 input_node_set[1][2]= 128'd22313;
 input_node_set[1][3]= 128'd324234;
-input_node_set[1][4]= 128'd123;
+input_node_set[1][4]= 128'd123000000000000;
 input_node_set[1][5]= {32'd54,32'd54754654,32'd32432432,32'd675656};       
 /*
 //class 2
