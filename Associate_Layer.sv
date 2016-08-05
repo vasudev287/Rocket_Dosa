@@ -6,7 +6,7 @@
 	input int c,
 	input key_response,    //0:key, 1:response
 	input assoc_learning_start,
-	output assoc_learning_done);         
+	output logic assoc_learning_done);         
 	
 	   
 
@@ -24,9 +24,10 @@ end
     
 always_comb 
 begin
+case(present_state)
 idle: 
-	begin
-	assoc_learning_done=0; 
+	begin 
+	assoc_learning_done=1'b0;  
 	end 
 assoc_learning_key:
 	begin
@@ -37,7 +38,7 @@ assoc_learning_response:
 	begin
 	AL_node_update();  
 	response_class=c;  
-	end 
+	end      
 connection: 
 	begin
 	if(!AL_memory.connection[key_class][response_class].connection_presence)
@@ -54,6 +55,7 @@ connection:
 		
 	assoc_learning_done=1;   
 	end        
+endcase 
 end 
  
 always_comb
@@ -83,10 +85,10 @@ connection:
 	end
 endcase 
 
-end 
+end   
 
 /* check syntax  
-///function  AL_node_update()
+function  AL_node_update(); 
 if(AL_memory.node[c].class_name!=c) 
 	begin
 	AL_memory.node[c].class_name=c;
@@ -102,3 +104,4 @@ else
 
 endfunction 	
 */  	
+endmodule 
