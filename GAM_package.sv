@@ -1,15 +1,16 @@
 package GAM_package;
 
-parameter NODE_COUNT=50;
-parameter CLASS_COUNT=5;  
-parameter DIMENSION_ROWS=2; 
-parameter DIMENSION_COLUMNS=2;
+parameter NODE_COUNT=10;
+parameter CLASS_COUNT=4;  
+parameter DIMENSION_ROWS=4; 
+parameter DIMENSION_COLUMNS=4;  
 parameter VECTOR_LEN=DIMENSION_ROWS*DIMENSION_COLUMNS;       
 
-
+  
 parameter AGE_MAX=6 ;                 
         
-typedef enum {READ,WRITE} RD_WR_T;       
+typedef enum {READ,WRITE} RD_WR_T;  
+typedef enum {LEARNING,RECALL} LEARNING_RECALL_T;      
     
 typedef enum logic[1:0]{EQUAL,GREATER,LESSER} comparator_T;      
 
@@ -56,7 +57,7 @@ int node_count[CLASS_COUNT:1];
 
 /////////connection memory structure/////////// 
 typedef struct{  
-logic connection_presence;
+logic connection_presence;  
 int age;  
 }single_node_connection_T;    
   
@@ -64,6 +65,29 @@ typedef struct {
 single_node_connection_T connection[CLASS_COUNT:1][NODE_COUNT:1][NODE_COUNT:1]; 
 }connection_mem_T ; 
  ///////////////////////////////////////////// 
+ ////associate layer//////////////////////////////////////////////////////
+typedef struct{
+int class_name;
+int m;  //assoc index of node 
+node_vector_T W;
+int response_class[NODE_COUNT:0];   
+}AL_node_T;   //node associate Layer      
 
-memory_T memory;           
+/////////connection memory structure/////////// 
+typedef struct{   
+logic connection_presence;
+int weight;  
+}AL_single_node_connection_T;    
+ /////////////////////////////////////////////
+ 
+typedef struct{      
+AL_node_T node[CLASS_COUNT:1];  
+AL_single_node_connection_T connection[CLASS_COUNT:1][CLASS_COUNT:1];   //connection set  
+}AL_memory_T;   
+    
+   
+ /////////////////////////////////////////////////////////////////////////
+ memory_T memory;    //memory Later Memory 
+AL_memory_T AL_memory;   //associative layer memory  
+node_counter_mem_T node_counter;  //mode_counter           
  endpackage:GAM_package     
