@@ -42,12 +42,21 @@ out<=a-b;
 
 endmodule 
 
+//int subtraction
+module subtraction_int(
+input int  a, b,        
+output int c); 
+always_comb  
+begin       
+c =  a-b;          
+end   	  
+endmodule    
+
    
 module  multiplication(   //change w.r.t port sizes and overflow  
 
-input int a,
-input int b,  
-output logic   [array_length-1:0] c);
+input logic [array_length-1:0] a,b,  
+output logic   [(2*array_length)-1:0] c);  
 logic overflow;
 always_comb 
 begin 
@@ -99,6 +108,7 @@ int  square = 1;
 int  delta = 3;
 always_comb 
 begin 
+delta=3;    //eleminates warning in line 113  
 while(square <= a)
 begin 
 square = square + delta;

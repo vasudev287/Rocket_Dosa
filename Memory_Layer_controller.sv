@@ -1,43 +1,46 @@
 import GAM_package::* ;  
 
 module Memory_Layer_controller(
-	input clk,reset, learning_done,assoc_learning_done,comparator_T comparator,
-	output logic ld_upcounter,en_upcounter,en_node_counter,assoc_learning_start,
+	input clk,reset, learning_done,/*assoc_learning_done,*/comparator_T comparator,
+	input LEARNING_RECALL_T learning_recall,       
+	output logic ld_upcounter,en_upcounter,en_node_counter,/*assoc_learning_start,*/
    	en_connection,en_2min, X_c,C_c,W_c,T_c,M_c,RD_WR_T RD_WR_c,
 	output logic [1:0] mux1,mux2,mux3,mux4,mux5,mux6,demux);    
    
              
   
  
-enum {idle,waiting_assoc,new_input,no_class,
-     existing_class,read_MWT,update_M_compare_Th_ED,
+enum {idle,/*waiting_assoc,*/new_input,no_class, 
+     existing_class,read_MWT,update_M_compare_Th_ED, 
      greater_than_Th,less_than_Th,update_Ths1,
     write_Ws1_Ths1,write_Ws2, connections} present_state,next_state;  
 
 //write outputs for en_2min 
    
 always_ff @(posedge clk)
-begin
+begin 
 if(reset)
 present_state<=idle;
 else 
 present_state<=next_state;
 end  
 
-//outputs in each state
-always_comb
+//outputs in each state 
+always_comb 
 begin
 //setting all the values to 0
 {ld_upcounter,en_upcounter,en_node_counter,
-assoc_learning_start,en_connection,en_2min}='0;
+/*assoc_learning_start,*/en_connection,en_2min}='0;
 {X_c,C_c,W_c,T_c,M_c}='0;
 {mux1,mux2,mux3,mux4,mux5,mux6,demux}= '1;  
 RD_WR_c=READ; 
 unique case(present_state)
-idle: 
-	ld_upcounter=1'b1;     
+idle:   
+	ld_upcounter=1'b1;  
+/*   
 waiting_assoc: 
-	{ld_upcounter,assoc_learning_start}=2'b11;    
+	{ld_upcounter,assoc_learning_start}=2'b11;
+*/     
 new_input:
 	begin
 	{C_c,ld_upcounter}=2'b11;  
@@ -48,7 +51,7 @@ no_class:
 	{X_c,C_c,W_c,T_c,M_c,ld_upcounter,en_node_counter}='1; 
     	RD_WR_c=WRITE;
 	{mux1,mux2,mux3}='0;
-	end
+	end 
 existing_class:  
 	begin
 	{W_c,en_upcounter,en_2min}='1; 
@@ -112,9 +115,10 @@ always_comb
 begin
 case(present_state)
 idle: begin
-	if(learning_done) next_state=idle; 
-	else 		  next_state=new_input;
+	if(learning_done || learning_recall==RECALL) next_state=idle; 
+	else 		  next_state=new_input;    
        end
+/*
 waiting_assoc: 
 begin
 	if(assoc_learning_done) 
@@ -122,6 +126,7 @@ begin
 	else 		       
 	next_state=waiting_assoc; 
 end
+*/
 new_input:
 begin
 	if(comparator==EQUAL) 
@@ -154,7 +159,8 @@ write_Ws1_Ths1:
 write_Ws2:
 	next_state=connections;
 connections:
-	next_state=waiting_assoc;
+	//next_state=waiting_assoc;
+	next_state=idle;   
 endcase
 end
    
