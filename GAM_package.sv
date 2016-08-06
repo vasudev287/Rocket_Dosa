@@ -10,7 +10,8 @@ parameter VECTOR_LEN=DIMENSION_ROWS*DIMENSION_COLUMNS;
 parameter AGE_MAX=6 ;                 
         
 typedef enum {READ,WRITE} RD_WR_T;  
-typedef enum {LEARNING,RECALL} LEARNING_RECALL_T;      
+typedef enum {LEARNING,RECALL} LEARNING_RECALL_T; 
+typedef enum {READY, WAIT} READY_WAIT_T;      
     
 typedef enum logic[1:0]{EQUAL,GREATER,LESSER} comparator_T;      
 

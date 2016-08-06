@@ -12,3 +12,5 @@ else out=LESSER;
 end
 
 endmodule                                   
+
+//add assertion to see either the inputs is not 0  

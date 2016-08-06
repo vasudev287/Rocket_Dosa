@@ -5,13 +5,17 @@ module upcounter(
 
 int count; 
 
-always_ff @(posedge clk)
+always_ff @(posedge clk)  
 begin
-if(load) count=in1;
-else if(enable)        
+if(load) 
+begin 
+//count=in1;
+out = in1;
+end 
+else if(enable)         
 	begin	
-	count=count+1;
-	out=count;      
+	//count=count+1;
+	out=out+1;       
 	end
 end 
 endmodule 
