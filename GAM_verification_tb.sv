@@ -1,6 +1,8 @@
 import GAM_package::* ; 
 
-module GAM_verification_tb();
+//write concurrent assertions to see that node(x) or class(c) values are never zero.   
+
+module GAM_verification_tb();  
 
 //memory layer signals 
 logic clk=0;  
@@ -8,14 +10,20 @@ node_vector_T x;
 int c; 
 logic reset,learning_done;
 LEARNING_RECALL_T learning_recall;  
+READY_WAIT_T ready_wait; 
 
 //recall module signals 
 int Tk;  
 node_vector_T recalling_pattern;    
  
 //temp variables	
-node_vector_T input_node_set[CLASS_COUNT][NODE_COUNT];     
+node_vector_T input_node_set[CLASS_COUNT][NODE_COUNT];     //consider using queues    
 int input_class_set[];
+
+//temp variables for this testing module, remove or modify for diff verification modules
+int node_counter,class_counter; 
+int node_counter_max,class_counter_max;    
+
 
           
   
@@ -23,7 +31,7 @@ int input_class_set[];
 
 //modules instantiation
 
-Memory_Layer ML (clk,x, c, reset,learning_done,learning_recall);
+Memory_Layer ML (clk,x, c, reset,learning_done,learning_recall,ready_wait);  
   
 auto_associative_recall recall_alg3 (x,Tk,learning_recall,recalling_pattern);      
 
@@ -40,27 +48,46 @@ end
  
 initial
 begin
+//set initial values for temp variable according to number of inputs
+//remove or modify for diff verification modules
+node_counter_max= 5; 	class_counter_max=1 ; 
+node_counter=1 ;     	class_counter=1;    
+////////////////////////////////////////////////////////////////////
+
 learning_recall=LEARNING; 
-learning_done=1;
 reset=1;
 
 #clk_period  
-reset=0; learning_done=0; 
-x=input_node_set[1][1];c=1;
-
-#(10*clk_period)
-x=input_node_set[1][2]; 
-
-#(10*clk_period)
-x=input_node_set[1][3];
-
-#(10*clk_period)  
-learning_done=1;    
-$stop();
+reset=0; 
+   
+    
+#(clk_period*100 )$stop(); //change according to number of inputs or find a better way
 end
 
-
- 
+always@ (ready_wait)                    
+begin
+if(node_counter==node_counter_max & class_counter==class_counter_max)
+learning_done=1;
+else
+learning_done=0;       
+    
+if(ready_wait==READY) 
+	begin
+	x=input_node_set[class_counter][node_counter];
+ 	c=class_counter; 
+	if(node_counter !=node_counter_max)
+		node_counter=node_counter+1; 
+	else
+		begin
+		if(class_counter !=class_counter_max) 
+			begin
+			class_counter=class_counter+1; 
+			node_counter=1;  
+			end
+		end 
+          
+	end  
+end  
 
  
 //inputs

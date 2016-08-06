@@ -46,7 +46,7 @@ for(int i=1;i<=CLASS_COUNT;i=i+1)
 		begin
 		if(weight_sum[i][j]<min_weight_sum)
 			begin         
-			min_weight_sum=weight_sum[i][j];  
+			min_weight_sum=weight_sum[i][j];   
 			min_class=i;
 			min_node=j;          
 			end
