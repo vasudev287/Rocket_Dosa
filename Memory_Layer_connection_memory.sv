@@ -32,7 +32,7 @@ begin
 	//removing connection 
 	for(int i=1;i<NODE_COUNT;i++)    
 	begin
-	for(int j=1;i<NODE_COUNT;j++)	
+	for(int j=1;j<NODE_COUNT;j++)	
 	begin 
 	if(connection.connection[class_i][node1][node2].age>=AGE_MAX)
 	connection.connection[class_i][node1][node2].connection_presence=0;
@@ -45,7 +45,7 @@ begin
 	for(int i=1;i<NODE_COUNT;i++)    
 	begin
 	static  int connection_count=0;             
-	for(int j=1;i<NODE_COUNT;j++)	
+	for(int j=1;j<NODE_COUNT;j++)	
 	begin 
 	if(connection.connection[class_i][node1][node2].connection_presence==1)
 	connection_count=connection_count+1;

@@ -59,8 +59,11 @@ reset=1;
 
 #clk_period  
 reset=0; 
-   
-    
+             
+ 
+//$monitor ("node[1].W=%0d",  memory.classes[1].node[1].W, "node[2].W=%0d",  memory.classes[1].node[2].W,"node[3].W=%0d",  memory.classes[1].node[3].W);   
+//$monitor ("node[4].W=%0d",  memory.classes[1].node[4].W);
+//$monitor ("node[5].W=%0d", memory.classes[1].node[5].W);         
 #(clk_period*100 )$stop(); //change according to number of inputs or find a better way
 end
 
@@ -94,11 +97,11 @@ end
 initial
 begin
 //class 1
-input_node_set[1][1]= 128'd1234;       //16x8  
-input_node_set[1][2]= 128'd22313;
-input_node_set[1][3]= 128'd324234;
-input_node_set[1][4]= 128'd123000000000000;
-input_node_set[1][5]= {32'd54,32'd54754654,32'd32432432,32'd675656};       
+input_node_set[1][1]= 128'd1;       //16x8  
+input_node_set[1][2]= 128'd2;
+input_node_set[1][3]= 128'd300;
+input_node_set[1][4]= 128'd4;
+input_node_set[1][5]= 32'd5;       
 /*
 //class 2
 input_node_set[2][1]=;
@@ -120,4 +123,5 @@ input_node_set[4][4]=;
 input_node_set[4][5]=; 
 */ 
 end 
+
 endmodule 

@@ -1,5 +1,5 @@
 module min_finder(
-	input enable,
+	input clk,enable,
 	input int ED_in, node_in,
 	output int min1_node,min2_node,min1_ED,min2_ED);          
 
@@ -10,7 +10,7 @@ always @(negedge enable) begin
 {min1_ED_temp,min2_ED_temp,min1_node_temp,min2_node_temp} ='1;      
 end    
         
-always@(node_in,ED_in,enable)    
+always@(posedge clk)    
 begin  
 	if(enable) 
 	begin      

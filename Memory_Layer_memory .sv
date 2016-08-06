@@ -1,6 +1,6 @@
 import GAM_package::* ;
 
-module Memory_Layer_memory(
+module Memory_Layer_memory( input clk,
 	input int class_i,node_i,Th_i,M_i,
 	input   X_c,C_c,W_c,T_c,M_c,input RD_WR_T RD_WR_c,   
 	input node_vector_T X_i,W_i,
@@ -15,7 +15,7 @@ module Memory_Layer_memory(
 
 
 
-always_comb      
+always@ (posedge clk)
 begin
 //use unique case to check if data is being 
 // read/written to when always_comb executes before start of sim
@@ -38,6 +38,8 @@ else
 	memory.classes[class_i].class_name=class_i;      
 	if(W_c==1) 
 	memory.classes[class_i].node[node_i].W=W_i;
+	
+	$display($time  , "\t W_i is %0d, node_i is %0d, class_i is %0d", W_i, node_i, class_i);
 	if(T_c==1) 
 	memory.classes[class_i].node[node_i].Th=Th_i;
 	if(M_c==1) 
