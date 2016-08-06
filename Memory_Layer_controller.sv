@@ -5,26 +5,29 @@ module Memory_Layer_controller(
 	input LEARNING_RECALL_T learning_recall,       
 	output logic ld_upcounter,en_upcounter,en_node_counter,/*assoc_learning_start,*/
    	en_connection,en_2min, X_c,C_c,W_c,T_c,M_c,RD_WR_T RD_WR_c,
-	output logic [1:0] mux1,mux2,mux3,mux4,mux5,mux6,demux);    
+	output logic [1:0] mux1,mux2,mux3,mux4,mux5,mux6,demux, 
+	output READY_WAIT_T ready_wait);     
    
              
   
  
-enum {idle,/*waiting_assoc,*/new_input,no_class, 
+enum {idle,ready_for_input,/*waiting_assoc,*/new_input,no_class, 
      existing_class,read_MWT,update_M_compare_Th_ED, 
      greater_than_Th,less_than_Th,update_Ths1,
     write_Ws1_Ths1,write_Ws2, connections} present_state,next_state;  
 
-//write outputs for en_2min 
+//write outputs for en_2min       
    
 always_ff @(posedge clk)
 begin 
 if(reset)
+begin 
 present_state<=idle;
+end 
 else 
 present_state<=next_state;
 end  
-
+ 
 //outputs in each state 
 always_comb 
 begin
@@ -34,10 +37,17 @@ begin
 {X_c,C_c,W_c,T_c,M_c}='0;
 {mux1,mux2,mux3,mux4,mux5,mux6,demux}= '1;  
 RD_WR_c=READ; 
+ready_wait= WAIT;   
 unique case(present_state)
-idle:   
-	ld_upcounter=1'b1;  
-/*   
+idle:  
+	ld_upcounter=1'b1; 
+
+ready_for_input: 
+	begin 
+	ready_wait=READY;
+	ld_upcounter=1'b1; 
+	end
+/*    
 waiting_assoc: 
 	{ld_upcounter,assoc_learning_start}=2'b11;
 */     
@@ -113,10 +123,11 @@ end
 //next state logic
 always_comb 
 begin
-case(present_state)
+case(present_state) 
 idle: begin
+	
 	if(learning_done || learning_recall==RECALL) next_state=idle; 
-	else 		  next_state=new_input;    
+	else 		  next_state=ready_for_input;      
        end
 /*
 waiting_assoc: 
@@ -127,6 +138,8 @@ begin
 	next_state=waiting_assoc; 
 end
 */
+ready_for_input: next_state=new_input;   
+ 
 new_input:
 begin
 	if(comparator==EQUAL) 
@@ -135,7 +148,7 @@ begin
 	next_state=no_class;
 end  
 no_class: 
-	next_state=new_input;
+	next_state=idle;     
 existing_class:
 	if(comparator==EQUAL) 
 	next_state=read_MWT ;
