@@ -49,14 +49,14 @@ in_mux[6][0]<=Reg_Cx;
 in_mux[5][2]<=Reg_min1_ED;   
 end                
                  
-Memory_Layer_memory mem_dp(
+Memory_Layer_memory mem_dp(clk,
 	Reg_Cx,out_mux[1],out_mux[3],out_mux[4],
 	X_c,C_c,W_c,T_c,M_c,RD_WR_c, 
 	Reg_x,out_mux2,in_mux[5][0], Reg_Ths1,Reg_Ms1,in_demux); //???node_o  //??do we need X_o 
 
 ED_calculator ED (Reg_x,out_demux[0],out_ED); 
 
-min_finder min2 (en_2min,out_ED,in_mux[1][1], 
+min_finder min2 (clk, en_2min,out_ED,in_mux[1][1], 
 	Reg_min1_node,Reg_min2_node,Reg_min1_ED,Reg_min2_ED); 
 
 calculate_W_Th calc_alg1 ( 
