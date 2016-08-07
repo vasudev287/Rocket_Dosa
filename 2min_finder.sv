@@ -1,6 +1,6 @@
 module min_finder(
 	input clk,enable,
-	input int ED_in, node_in,
+	input logic[31:0] ED_in, node_in,
 	output int min1_node,min2_node,min1_ED,min2_ED);          
 
 int unsigned min1_node_temp,min2_node_temp='1;

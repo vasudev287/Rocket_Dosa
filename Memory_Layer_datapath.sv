@@ -24,7 +24,7 @@ int in_mux[6:1][3:0];
 
 node_vector_T in_mux2[3:0],out_mux2,in_demux,out_demux[3:0];    
 //ED block 
-int out_ED;	
+logic[31:0] out_ED;	
 //2 min finder block 
  
 //comparator

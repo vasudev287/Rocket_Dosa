@@ -93,17 +93,17 @@ endmodule
 module  square(
 input logic [array_length -1 :0] a,
 
-output int   b);
+output logic[31:0]   b);
 always_comb 
 begin 
  b = a ** 2; 
 end    
 endmodule   
 
-   
+ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
 module  sqrt( 
-input int a,
-output int out);
+input logic[31:0] a,
+output logic[31:0] out);
 int  square = 1;
 int  delta = 3;
 always_comb 
@@ -115,9 +115,15 @@ square = square + delta;
 delta = delta + 2;
 end 
 out = (delta/2 - 1);
+if ( $isunknown(a)) 
+out = 'x; 
+
+
 end 
 endmodule 
  
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 module  int_addition(
 input int signed a, b,
 output int signed c);     //change port c size to 8                 
@@ -134,18 +140,19 @@ endmodule
 // Validate the block mentioned below !!!!!!!!!!!!
 module square_results_adder(
 input logic [(VECTOR_LEN*32) -1 :0] a, 
-output int out);
+output logic[31:0] out);
 
 always_comb 
 
 begin 	
+
 	out = 0;
 
 	for ( int i =0; i<VECTOR_LEN ; i++ )
 	begin
 
-		 out += a[(i*32) +:32];    
-
+		 out += a[(i*32) +:32];  
+		
 	end 
 
 end 
