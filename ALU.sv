@@ -26,11 +26,10 @@ always_comb
 begin 	
 	
 	if ( a < b  )
-	 begin
-	   c  = a - b;
-	end 
-	else c = b-a; 
-end  	
+		c  = b - a;
+	else 
+		c = a-b; 
+end  	    
 endmodule 
  
 module subtraction_signed(
@@ -108,6 +107,7 @@ int  square = 1;
 int  delta = 3;
 always_comb 
 begin 
+square = 1;    
 delta=3;    //eleminates warning in line 113  
 while(square <= a)
 begin 
