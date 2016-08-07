@@ -33,7 +33,7 @@ int node_counter_max,class_counter_max;
 
 Memory_Layer ML (clk,x, c, reset,learning_done,learning_recall,ready_wait);  
   
-auto_associative_recall recall_alg3 (x,Tk,learning_recall,recalling_pattern);      
+//auto_associative_recall recall_alg3 (x,Tk,learning_recall,recalling_pattern);         
 
 
 //Clock
@@ -50,14 +50,18 @@ initial
 begin
 //set initial values for temp variable according to number of inputs
 //remove or modify for diff verification modules
-node_counter_max= 5; 	class_counter_max=1 ; 
-node_counter=1 ;     	class_counter=1;    
+node_counter_max= 4; 	class_counter_max=1 ; 
+node_counter=1 ;     	class_counter=1;     
 ////////////////////////////////////////////////////////////////////
 
 learning_recall=LEARNING; 
 reset=1;
-
-#clk_period  
+ $monitor ($time ,"\n ", 
+					"\n \t node[1]: W = %0h \t Th=%0d \t M=%0d", memory.classes[1].node[1].W ,memory.classes[1].node[1].Th, memory.classes[1].node[1].M,
+					"\n \t node[2]: W = %0h \t Th=%0d \t M=%0d", memory.classes[1].node[2].W ,memory.classes[1].node[2].Th, memory.classes[1].node[2].M,
+					"\n \t node[3]: W = %0h \t Th=%0d \t M=%0d", memory.classes[1].node[3].W ,memory.classes[1].node[3].Th, memory.classes[1].node[3].M, 
+					"\n \t node[4]: W = %0h \t Th=%0d \t M=%0d", memory.classes[1].node[4].W ,memory.classes[1].node[4].Th, memory.classes[1].node[4].M);      
+#clk_period    
 reset=0; 
              
  
@@ -88,20 +92,20 @@ if(ready_wait==READY)
 			node_counter=1;  
 			end
 		end 
-          
-	end  
-end  
+        
+	end     
+end     
 
  
 //inputs
 initial
-begin
+begin 
 //class 1
-input_node_set[1][1]= 128'd1;       //16x8  
-input_node_set[1][2]= 128'd2;
-input_node_set[1][3]= 128'd300;
-input_node_set[1][4]= 128'd4;
-input_node_set[1][5]= 32'd5;       
+input_node_set[1][1]= 32'h0003;       //16x8  
+input_node_set[1][2]= 32'h0400;
+input_node_set[1][3]= 32'h070005;  
+input_node_set[1][4]= 32'h1111;
+//input_node_set[1][5]= 32'd5;         
 /*
 //class 2
 input_node_set[2][1]=;

@@ -76,6 +76,7 @@ read_MWT:
 	end	
 update_M_compare_Th_ED:
 	begin
+	{X_c,C_c,W_c,T_c}='0;    
 	{M_c,ld_upcounter}='1;
 	RD_WR_c=WRITE;    
 	mux4=2'b01;   

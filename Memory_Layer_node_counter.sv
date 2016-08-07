@@ -14,12 +14,12 @@ begin
 node_counter.node_count[class_name]= node_counter.node_count[class_name]+1; 
 node_count=node_counter.node_count[class_name]; 
 end  
-
-          
-always_comb
+  
+        
+always_comb           
 begin
 if(!en_node_counter)
 node_max=node_counter.node_count[class_name];       
 end   
-        
-endmodule 
+     
+endmodule   

@@ -13,13 +13,31 @@ module Memory_Layer_memory( input clk,
   
 //memory_T memory;   
 
+  
 
-
-always@ (posedge clk)
+always_ff@(negedge clk)  
 begin
 //use unique case to check if data is being 
 // read/written to when always_comb executes before start of sim
-if(RD_WR_c==READ)            
+
+if(RD_WR_c==WRITE) 
+	begin 
+	if(X_c==1)                    
+	memory.classes[class_i].node[node_i].X=X_i; 
+	if(C_c==1) 
+	memory.classes[class_i].class_name=class_i;      
+	if(W_c==1)   
+	memory.classes[class_i].node[node_i].W=W_i;
+	if(T_c==1) 
+	memory.classes[class_i].node[node_i].Th=Th_i;
+	if(M_c==1) 
+	memory.classes[class_i].node[node_i].M=M_i;
+	end
+end 
+
+always_comb         
+begin 	
+if(RD_WR_c==READ)             
 	begin     
 	if(C_c==1) 
 	class_o=memory.classes[class_i].class_name;    
@@ -30,21 +48,7 @@ if(RD_WR_c==READ)
 	if(M_c==1)  
 	M_o=memory.classes[class_i].node[node_i].M;
 	end
-else 
-	begin
-	if(X_c==1)                    
-	memory.classes[class_i].node[node_i].X=X_i; 
-	if(C_c==1) 
-	memory.classes[class_i].class_name=class_i;      
-	if(W_c==1) 
-	memory.classes[class_i].node[node_i].W=W_i;
-	
-	$display($time  , "\t W_i is %0d, node_i is %0d, class_i is %0d", W_i, node_i, class_i);
-	if(T_c==1) 
-	memory.classes[class_i].node[node_i].Th=Th_i;
-	if(M_c==1) 
-	memory.classes[class_i].node[node_i].M=M_i;
-	end
-end 
+               
+end       
 endmodule
   
