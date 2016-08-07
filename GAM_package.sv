@@ -2,12 +2,12 @@ package GAM_package;
 
 parameter NODE_COUNT=10;
 parameter CLASS_COUNT=4;  
-parameter DIMENSION_ROWS=4; 
-parameter DIMENSION_COLUMNS=4;  
+parameter DIMENSION_ROWS=2; 
+parameter DIMENSION_COLUMNS=2;  
 parameter VECTOR_LEN=DIMENSION_ROWS*DIMENSION_COLUMNS;       
 
   
-parameter AGE_MAX=6 ;                 
+parameter AGE_MAX=6 ;                      
         
 typedef enum {READ,WRITE} RD_WR_T;  
 typedef enum {LEARNING,RECALL} LEARNING_RECALL_T; 

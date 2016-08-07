@@ -39,24 +39,25 @@ int out_ED;
 //assignig inputs and outputs to signals
 always@(x,c,out_demux[1],out_demux[2],Reg_Ths1,Reg_Ms1,Reg_Cx,Reg_min1_ED)   
 begin
-Reg_x<=x;  
+Reg_x<=x;   
 Reg_Cx<=c;
 Reg_Ws1<=out_demux[1];Reg_Ws2<=out_demux[2];
 //in_mux[1][0]<=node_count;    
 in_mux[6][2]<=Reg_Ths1;
 in_mux[4][1]<=Reg_Ms1+1;  
 in_mux[6][0]<=Reg_Cx;
-in_mux[5][2]<=Reg_min1_ED;   
+in_mux[5][2]<=Reg_min1_ED; 
+           
 end                
-                 
-Memory_Layer_memory mem_dp(
+                   
+Memory_Layer_memory mem_dp(clk,
 	Reg_Cx,out_mux[1],out_mux[3],out_mux[4],
 	X_c,C_c,W_c,T_c,M_c,RD_WR_c, 
 	Reg_x,out_mux2,in_mux[5][0], Reg_Ths1,Reg_Ms1,in_demux); //???node_o  //??do we need X_o 
 
 ED_calculator ED (Reg_x,out_demux[0],out_ED); 
-
-min_finder min2 (en_2min,out_ED,in_mux[1][1], 
+  
+min_finder min2 (clk, en_2min,out_ED,in_mux[1][1], 
 	Reg_min1_node,Reg_min2_node,Reg_min1_ED,Reg_min2_ED); 
 
 calculate_W_Th calc_alg1 ( 
@@ -68,7 +69,7 @@ Memory_Layer_connection_memory conn_mem (
 	en_connection,learning_done);  	
 			
 Memory_Layer_node_counter node_counter(
-	Reg_Cx, en_node_counter,in_mux[1][0],in_mux[6][1]);      
+	Reg_Cx, en_node_counter,in_mux[1][0],in_mux[6][1]);              
               
 comparator comp (out_mux[5],out_mux[6],comparator_c);     
 
@@ -82,7 +83,7 @@ mux_W mux2(Reg_x,in_mux2[1],in_mux2[2],in_mux2[3],out_mux2,mux2_sel);
 mux mux3(0,Reg_min1_ED,in_mux[3][2],in_mux[3][3],out_mux[3],mux3_sel);
 mux mux4(1,in_mux[4][1],in_mux[4][2],in_mux[4][3],out_mux[4],mux4_sel);
 mux mux5(in_mux[5][0],in_mux[1][1],in_mux[5][2],in_mux[5][3],out_mux[5],mux5_sel);
-mux mux6(in_mux[6][0],in_mux[6][1],in_mux[6][2],in_mux[6][3],out_mux[6],mux6_sel); 
+mux mux6(in_mux[6][0],in_mux[6][1],in_mux[6][2],in_mux[6][3],out_mux[6],mux6_sel);   
 
 
 endmodule 

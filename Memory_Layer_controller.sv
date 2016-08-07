@@ -60,7 +60,7 @@ no_class:
 	begin
 	{X_c,C_c,W_c,T_c,M_c,ld_upcounter,en_node_counter}='1; 
     	RD_WR_c=WRITE;
-	{mux1,mux2,mux3}='0;
+	{mux1,mux2,mux3,mux4}='0;
 	end 
 existing_class:  
 	begin
@@ -76,6 +76,7 @@ read_MWT:
 	end	
 update_M_compare_Th_ED:
 	begin
+	{X_c,C_c,W_c,T_c}='0;    
 	{M_c,ld_upcounter}='1;
 	RD_WR_c=WRITE;    
 	mux4=2'b01;   
