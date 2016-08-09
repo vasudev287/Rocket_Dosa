@@ -22,6 +22,7 @@ begin
 
 if(RD_WR_c==WRITE) 
 	begin 
+	         
 	if(X_c==1)                    
 	memory.classes[class_i].node[node_i].X=X_i; 
 	if(C_c==1) 
@@ -48,7 +49,11 @@ if(RD_WR_c==READ)
 	if(M_c==1)  
 	M_o=memory.classes[class_i].node[node_i].M;
 	end
-               
+
+
+
+
+	
 end       
 endmodule
   

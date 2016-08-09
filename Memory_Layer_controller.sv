@@ -44,7 +44,7 @@ idle:
 
 ready_for_input: 
 	begin 
-	ready_wait=READY;
+	ready_wait=READY; 
 	ld_upcounter=1'b1; 
 	end
 /*    
