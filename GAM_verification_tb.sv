@@ -14,7 +14,7 @@ READY_WAIT_T ready_wait;
 
 //recall module signals 
 int Tk;  
-node_vector_T recalling_pattern;    
+node_vector_T recalling_pattern;      
  
 //temp variables	
 node_vector_T input_node_set[CLASS_COUNT][NODE_COUNT];     //consider using queues    
@@ -50,7 +50,7 @@ initial
 begin
 //set initial values for temp variable according to number of inputs
 //remove or modify for diff verification modules
-node_counter_max= 4; 	class_counter_max=1 ; 
+node_counter_max= 7; 	class_counter_max=1 ;       
 node_counter=1 ;     	class_counter=1;     
 ////////////////////////////////////////////////////////////////////
 
@@ -94,7 +94,7 @@ if(ready_wait==READY)
 		end 
         
 	end     
-end     
+end                    
 
  
 //inputs
@@ -104,8 +104,9 @@ begin
 input_node_set[1][1]= 32'h0003;       //16x8  
 input_node_set[1][2]= 32'h0400;
 input_node_set[1][3]= 32'h070005;  
-input_node_set[1][4]= 32'h1111;
-//input_node_set[1][5]= 32'd5;         
+input_node_set[1][4]= 32'h0101;
+input_node_set[1][5]= 32'h0c0b0a09; 
+input_node_set[1][6]= 32'h0604;                              
 /*
 //class 2
 input_node_set[2][1]=;

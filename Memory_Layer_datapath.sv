@@ -24,7 +24,7 @@ int in_mux[6:1][3:0];
 
 node_vector_T in_mux2[3:0],out_mux2,in_demux,out_demux[3:0];    
 //ED block 
-logic[31:0] out_ED;	
+int out_ED;	    
 //2 min finder block 
  
 //comparator
@@ -37,7 +37,7 @@ logic[31:0] out_ED;
 
 //////////////////////////////////////////////////////////////////////////
 //assignig inputs and outputs to signals
-always@(x,c,out_demux[1],out_demux[2],Reg_Ths1,Reg_Ms1,Reg_Cx,Reg_min1_ED)   
+always@(x,c,out_demux[1],out_demux[2],Reg_Ths1,Reg_Ms1,Reg_Cx,Reg_min1_ED)     
 begin
 Reg_x<=x;   
 Reg_Cx<=c;
@@ -47,7 +47,7 @@ in_mux[6][2]<=Reg_Ths1;
 in_mux[4][1]<=Reg_Ms1+1;  
 in_mux[6][0]<=Reg_Cx;
 in_mux[5][2]<=Reg_min1_ED; 
-           
+         
 end                
                    
 Memory_Layer_memory mem_dp(clk,
@@ -77,10 +77,10 @@ demux dm (in_demux,out_demux[0],out_demux[1],out_demux[2],out_demux[3],demux_sel
 
 upcounter uc (clk,ld_upcounter,en_upcounter,1,in_mux[1][1]); //in_mux[1][1]=in_mux[5][1] 
 //modify mux 2 
-mux mux1(in_mux[1][0],in_mux[1][1],Reg_min1_node,in_mux[1][3],out_mux[1],mux1_sel);
+mux mux1(in_mux[1][0],in_mux[1][1],Reg_min1_node,Reg_min2_node,out_mux[1],mux1_sel);      
 //mux mux2(in_mux[2][0],in_mux[2][1],in_mux[2][2],in_mux[2][3],out_mux[2],mux2_sel);
 mux_W mux2(Reg_x,in_mux2[1],in_mux2[2],in_mux2[3],out_mux2,mux2_sel);   
-mux mux3(0,Reg_min1_ED,in_mux[3][2],in_mux[3][3],out_mux[3],mux3_sel);
+mux mux3(0,Reg_min1_ED,in_mux[3][2],in_mux[3][3],out_mux[3],mux3_sel); 
 mux mux4(1,in_mux[4][1],in_mux[4][2],in_mux[4][3],out_mux[4],mux4_sel);
 mux mux5(in_mux[5][0],in_mux[1][1],in_mux[5][2],in_mux[5][3],out_mux[5],mux5_sel);
 mux mux6(in_mux[6][0],in_mux[6][1],in_mux[6][2],in_mux[6][3],out_mux[6],mux6_sel);   

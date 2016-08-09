@@ -92,6 +92,7 @@ greater_than_Th:
 less_than_Th: 
 	begin 
 	{W_c,ld_upcounter}='1; 
+	mux1=2'b11;   
 	demux=2'b10; 
 	end
 update_Ths1: 

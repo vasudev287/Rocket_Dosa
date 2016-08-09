@@ -26,11 +26,10 @@ always_comb
 begin 	
 	
 	if ( a < b  )
-	 begin
-	   c  = a - b;
-	end 
-	else c = b-a; 
-end  	
+		c  = b - a;
+	else 
+		c = a-b; 
+end  	    
 endmodule 
  
 module subtraction_signed(
@@ -93,21 +92,22 @@ endmodule
 module  square(
 input logic [array_length -1 :0] a,
 
-output logic[31:0]   b);
+output int   b);
 always_comb 
 begin 
  b = a ** 2; 
 end    
 endmodule   
 
- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
+   
 module  sqrt( 
-input logic[31:0] a,
-output logic[31:0] out);
+input int a,
+output int out);
 int  square = 1;
 int  delta = 3;
 always_comb 
 begin 
+square = 1;    
 delta=3;    //eleminates warning in line 113  
 while(square <= a)
 begin 
@@ -115,15 +115,9 @@ square = square + delta;
 delta = delta + 2;
 end 
 out = (delta/2 - 1);
-if ( $isunknown(a)) 
-out = 'x; 
-
-
 end 
 endmodule 
  
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 module  int_addition(
 input int signed a, b,
 output int signed c);     //change port c size to 8                 
@@ -140,19 +134,18 @@ endmodule
 // Validate the block mentioned below !!!!!!!!!!!!
 module square_results_adder(
 input logic [(VECTOR_LEN*32) -1 :0] a, 
-output logic[31:0] out);
+output int out);
 
 always_comb 
 
 begin 	
-
 	out = 0;
 
 	for ( int i =0; i<VECTOR_LEN ; i++ )
 	begin
 
-		 out += a[(i*32) +:32];  
-		
+		 out += a[(i*32) +:32];    
+
 	end 
 
 end 
