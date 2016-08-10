@@ -97,6 +97,17 @@ always_comb
 begin 
  b = a ** 2; 
 end    
+endmodule  
+
+//int square 
+module  square_int(
+input int  a,
+
+output longint  b);
+always_comb 
+begin 
+ b = a ** 2;  
+end    
 endmodule   
 
    
