@@ -25,7 +25,7 @@ int node_counter,class_counter;
 int node_counter_max,class_counter_max;    
 
 
-          
+              
   
 
 
@@ -39,7 +39,7 @@ Memory_Layer ML (clk,x, c, reset,learning_done,learning_recall,ready_wait);
 //Clock
 int clk_period=10;
 
-initial 
+initial  
 begin
 forever #(clk_period/2) clk=~clk;   
 end 
@@ -50,7 +50,7 @@ initial
 begin
 //set initial values for temp variable according to number of inputs
 //remove or modify for diff verification modules
-node_counter_max= 7; 	class_counter_max=1 ;       
+node_counter_max= 9; 	class_counter_max=1 ;       
 node_counter=1 ;     	class_counter=1;     
 ////////////////////////////////////////////////////////////////////
 
@@ -73,13 +73,14 @@ end
 
 always@ (ready_wait)                    
 begin
+
 if(node_counter==node_counter_max & class_counter==class_counter_max)
-learning_done=1;
+learning_done=1;     
 else
-learning_done=0;       
-    
-if(ready_wait==READY) 
-	begin
+learning_done=0;          
+       
+if(ready_wait==READY & !learning_done)      
+	begin        
 	x=input_node_set[class_counter][node_counter];
  	c=class_counter; 
 	if(node_counter !=node_counter_max)
@@ -106,7 +107,10 @@ input_node_set[1][2]= 32'h0400;
 input_node_set[1][3]= 32'h070005;  
 input_node_set[1][4]= 32'h0101;
 input_node_set[1][5]= 32'h0c0b0a09; 
-input_node_set[1][6]= 32'h0604;                              
+input_node_set[1][6]= 32'h0604; 
+input_node_set[1][7]= 32'h060002;
+input_node_set[1][8]= 32'h0202;     
+                                                   
 /*
 //class 2
 input_node_set[2][1]=;
@@ -129,4 +133,5 @@ input_node_set[4][5]=;
 */ 
 end 
 
-endmodule 
+endmodule
+                                             
