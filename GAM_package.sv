@@ -18,9 +18,9 @@ typedef enum logic[1:0]{EQUAL,GREATER,LESSER} comparator_T;
 
 //typedef  logic [7:0] pixel_T;      
 //typedef  pixel_T [DIMENSION_ROWS-1:0][DIMENSION_COLUMNS-1:0] node_vector_T;        
-typedef logic [(VECTOR_LEN*8)-1:0] node_vector_T;  
+typedef bit [(VECTOR_LEN*8)-1:0] node_vector_T;          
 
-typedef logic [(VECTOR_LEN*9)-1:0] node_vector_signed_T;            
+typedef bit [(VECTOR_LEN*9)-1:0] node_vector_signed_T;                
 
 ////////////////////memory structure//////////////////////////////
 //single node structure in a class in memory layer    

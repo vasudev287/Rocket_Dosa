@@ -13,7 +13,7 @@ LEARNING_RECALL_T learning_recall;
 READY_WAIT_T ready_wait; 
 
 //recall module signals 
-int Tk;  
+int Tk=4;       
 node_vector_T recalling_pattern;      
  
 //temp variables	
@@ -33,7 +33,7 @@ int node_counter_max,class_counter_max;
 
 Memory_Layer ML (clk,x, c, reset,learning_done,learning_recall,ready_wait);  
   
-//auto_associative_recall recall_alg3 (x,Tk,learning_recall,recalling_pattern);         
+auto_associative_recall recall_alg3 (x,Tk,learning_recall,recalling_pattern);                
 
 
 //Clock
@@ -44,7 +44,7 @@ begin
 forever #(clk_period/2) clk=~clk;   
 end 
 
-//inputs   
+//inputs     
  
 initial
 begin
@@ -60,14 +60,18 @@ reset=1;
 					"\n \t node[1]: W = %0h \t Th=%0d \t M=%0d", memory.classes[1].node[1].W ,memory.classes[1].node[1].Th, memory.classes[1].node[1].M,
 					"\n \t node[2]: W = %0h \t Th=%0d \t M=%0d", memory.classes[1].node[2].W ,memory.classes[1].node[2].Th, memory.classes[1].node[2].M,
 					"\n \t node[3]: W = %0h \t Th=%0d \t M=%0d", memory.classes[1].node[3].W ,memory.classes[1].node[3].Th, memory.classes[1].node[3].M, 
-					"\n \t node[4]: W = %0h \t Th=%0d \t M=%0d", memory.classes[1].node[4].W ,memory.classes[1].node[4].Th, memory.classes[1].node[4].M);      
+					"\n \t node[4]: W = %0h \t Th=%0d \t M=%0d", memory.classes[1].node[4].W ,memory.classes[1].node[4].Th, memory.classes[1].node[4].M,
+					"\n \t node[5]: W = %0h \t Th=%0d \t M=%0d", memory.classes[1].node[5].W ,memory.classes[1].node[5].Th, memory.classes[1].node[4].M,
+					"\n \t node[6]: W = %0h \t Th=%0d \t M=%0d", memory.classes[1].node[6].W ,memory.classes[1].node[6].Th, memory.classes[1].node[4].M,
+					"\n \t node[7]: W = %0h \t Th=%0d \t M=%0d", memory.classes[1].node[7].W ,memory.classes[1].node[7].Th, memory.classes[1].node[4].M,
+					"\n \t node[8]: W = %0h \t Th=%0d \t M=%0d", memory.classes[1].node[8].W ,memory.classes[1].node[8].Th, memory.classes[1].node[4].M,
+					"\n \t node[9]: W = %0h \t Th=%0d \t M=%0d", memory.classes[1].node[9].W ,memory.classes[1].node[9].Th, memory.classes[1].node[4].M);                   
 #clk_period    
 reset=0; 
-             
- 
-//$monitor ("node[1].W=%0d",  memory.classes[1].node[1].W, "node[2].W=%0d",  memory.classes[1].node[2].W,"node[3].W=%0d",  memory.classes[1].node[3].W);   
-//$monitor ("node[4].W=%0d",  memory.classes[1].node[4].W);
-//$monitor ("node[5].W=%0d", memory.classes[1].node[5].W);         
+
+
+#(clk_period*90)  learning_recall=RECALL; x= 32'h070005;                
+      
 #(clk_period*100 )$stop(); //change according to number of inputs or find a better way
 end
 
