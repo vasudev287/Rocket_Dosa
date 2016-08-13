@@ -117,15 +117,19 @@ output int out);
 int  square = 1;
 int  delta = 3;
 always_comb 
-begin 
+begin
 square = 1;    
 delta=3;    //eleminates warning in line 113  
-while(square <= a)
+begin: sqrt_loop  
+for ( int i =0; i < 4999; i++) // Adding 499 to avoid maximum loop couner . Can also use -max_loop_cnt number 
 begin 
 square = square + delta;
 delta = delta + 2;
 end 
 out = (delta/2 - 1);
+if (square <= a)
+disable  sqrt_loop; 
+end: sqrt_loop   
 end 
 endmodule 
  
