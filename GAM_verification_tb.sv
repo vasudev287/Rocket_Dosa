@@ -1,8 +1,11 @@
-import GAM_package::* ; 
+`define DEBUG_MEMOMY_CONTENTS    
 
 //write concurrent assertions to see that node(x) or class(c) values are never zero.   
+ 
+module GAM_verification_tb;    
 
-module GAM_verification_tb();  
+
+import GAM_package::* ;    
 
 //memory layer signals 
 logic clk=0;  
@@ -11,14 +14,14 @@ int c;
 logic reset,learning_done;
 LEARNING_RECALL_T learning_recall;  
 READY_WAIT_T ready_wait; 
-
+  
 //recall module signals 
 int Tk=4;       
 node_vector_T recalling_pattern;      
  
 //temp variables	
 node_vector_T input_node_set[CLASS_COUNT][NODE_COUNT];     //consider using queues    
-int input_class_set[];
+//int input_class_set[];
 
 //temp variables for this testing module, remove or modify for diff verification modules
 int node_counter,class_counter; 
@@ -56,6 +59,7 @@ node_counter=1 ;     	class_counter=1;
 
 learning_recall=LEARNING; 
 reset=1;
+`ifdef DEBUG_MEMOMY_CONTENTS
  $monitor ($time ,"\n ", 
 					"\n \t node[1]: W = %0h \t Th=%0d \t M=%0d", memory.classes[1].node[1].W ,memory.classes[1].node[1].Th, memory.classes[1].node[1].M,
 					"\n \t node[2]: W = %0h \t Th=%0d \t M=%0d", memory.classes[1].node[2].W ,memory.classes[1].node[2].Th, memory.classes[1].node[2].M,
@@ -66,7 +70,10 @@ reset=1;
 					"\n \t node[7]: W = %0h \t Th=%0d \t M=%0d", memory.classes[1].node[7].W ,memory.classes[1].node[7].Th, memory.classes[1].node[4].M,
 					"\n \t node[8]: W = %0h \t Th=%0d \t M=%0d", memory.classes[1].node[8].W ,memory.classes[1].node[8].Th, memory.classes[1].node[4].M,
 					"\n \t node[9]: W = %0h \t Th=%0d \t M=%0d", memory.classes[1].node[9].W ,memory.classes[1].node[9].Th, memory.classes[1].node[4].M);                   
-#clk_period    
+
+`endif
+ 
+#clk_period     
 reset=0; 
 
 
