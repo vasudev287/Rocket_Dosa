@@ -9,7 +9,9 @@ connection_mem_T connection;
 always@(posedge en_connection) 
 begin
  
-if(en_connection & !learning_done)         
+if( !learning_done)         // Removed en_connection & for removing simulation error as we used en_connection 
+
+//simulate again in questa sim 
 	begin
 	connection.connection[class_i][node1][node2].connection_presence=1;    
 	connection.connection[class_i][node2][node1].connection_presence=1;
