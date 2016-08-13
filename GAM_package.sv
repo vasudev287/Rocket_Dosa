@@ -1,3 +1,6 @@
+`ifndef PACKAGE
+`define PACKAGE 
+
 package GAM_package;
 
 parameter NODE_COUNT=10;
@@ -95,4 +98,11 @@ AL_single_node_connection_T connection[CLASS_COUNT:1][CLASS_COUNT:1];   //connec
 AL_memory_T AL_memory;   //associative layer memory  
 node_counter_mem_T node_counter;  //mode_counter 
 INVALID_VALID_T invalid_node_list[CLASS_COUNT:1][NODE_COUNT:1] ;     ////node validity                      
- endpackage:GAM_package     
+      
+ 
+ endpackage:GAM_package 
+ 
+ import GAM_package::* ;  
+ 
+ `endif   
+ 
