@@ -6,16 +6,18 @@ module min_finder(
 int unsigned min1_node_temp,min2_node_temp='1;
 int unsigned min1_ED_temp,min2_ED_temp='1;        
 
+//implementing this operation in always@posedge clk block, else statement, simulate again to verify working
+/* 
 always @(negedge enable) begin
 {min1_ED_temp,min2_ED_temp,min1_node_temp,min2_node_temp} ='1;      
 end    
-        
+*/         
 always@(posedge clk)    
 begin  
 	if(enable) 
 	begin      
 	if (ED_in < min1_ED_temp)     
-		begin
+		begin  
 		min2_ED_temp=min1_ED_temp; 
 		min2_node_temp=min1_node_temp;
 		min1_ED_temp=ED_in;
@@ -44,8 +46,8 @@ begin
 	min1_ED=min1_ED_temp;    
 	min2_ED=min2_ED_temp;      
 	end        
-	//else  
-	//{min1_ED_temp,min2_ED_temp} ='1;     
+	else  
+	{min1_ED_temp,min2_ED_temp,min1_node_temp,min2_node_temp} ='1;               
 
 end     
 endmodule        

@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+  
 import GAM_package::* ;  
 
 module Memory_Layer_connection_memory(
@@ -7,7 +9,7 @@ module Memory_Layer_connection_memory(
 connection_mem_T connection;     
                                    
 always@(posedge en_connection) 
-begin
+begin 
  
 if( !learning_done)         // Removed en_connection & for removing simulation error as we used en_connection 
 
@@ -18,7 +20,7 @@ if( !learning_done)         // Removed en_connection & for removing simulation e
 	connection.connection[class_i][node1][node2].age=0;   //??in case there's already a connection          
 	connection.connection[class_i][node2][node1].age=0;                 	
 	  
-	for(int i=1;i<NODE_COUNT;i++)
+	for(int i=1;i<NODE_COUNT;i++)     
 		begin
 		if(i!=node1 & i!=node2)
 			begin
@@ -30,13 +32,13 @@ if( !learning_done)         // Removed en_connection & for removing simulation e
 	end 
  
 
-if(learning_done)    //if learning finished, remove all connections with age>age_max  
-begin
+else if(learning_done)    //if learning finished, remove all connections with age>age_max  
+begin                  
 	
 	//removing connection 
 	for(int class_counter=1; class_counter< CLASS_COUNT;class_counter++)
 	begin
-	for(int i=1;i<NODE_COUNT;i++)    
+	for(int i=1;i<NODE_COUNT;i++)      
 	begin
 	for(int j=1;j<NODE_COUNT;j++)	 
 	begin     

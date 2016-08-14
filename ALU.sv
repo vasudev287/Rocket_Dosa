@@ -106,7 +106,7 @@ input int  a,
 output longint  b);
 always_comb 
 begin 
- b = a ** 2;  
+ b = a*a;     
 end    
 endmodule   
 

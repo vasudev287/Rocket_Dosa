@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 `define DEBUG_MEMOMY_CONTENTS    
 
 //write concurrent assertions to see that node(x) or class(c) values are never zero.   
@@ -8,15 +10,15 @@ module GAM_verification_tb;
 import GAM_package::* ;    
 
 //memory layer signals 
-logic clk=0;  
+reg clk;              
 node_vector_T x; 
-int c; 
-logic reset,learning_done;
+int c;  
+logic reset,learning_done;    
 LEARNING_RECALL_T learning_recall;  
-READY_WAIT_T ready_wait; 
+READY_WAIT_T ready_wait;     
   
 //recall module signals 
-int Tk=4;       
+int Tk;         
 node_vector_T recalling_pattern;      
  
 //temp variables	
@@ -24,12 +26,13 @@ node_vector_T input_node_set[CLASS_COUNT][NODE_COUNT];     //consider using queu
 //int input_class_set[];
 
 //temp variables for this testing module, remove or modify for diff verification modules
-int node_counter,class_counter; 
-int node_counter_max,class_counter_max;    
+int node_counter;
+int class_counter;                           
+parameter node_counter_max=9;parameter class_counter_max=1;      
 
 
               
-  
+       
 
 
 //modules instantiation
@@ -38,14 +41,20 @@ Memory_Layer ML (clk,x, c, reset,learning_done,learning_recall,ready_wait);
   
 auto_associative_recall recall_alg3 (x,Tk,learning_recall,recalling_pattern);                
 
-
+   
 //Clock
-int clk_period=10;
-
-initial  
+parameter clk_period=10;   
+ 
+//tbx clkgen  
+initial   
 begin
-forever #(clk_period/2) clk=~clk;   
+clk=0;    
+forever
+begin 
+#(clk_period/2) clk = ~clk;    
+end     
 end 
+
 
 //inputs     
  
@@ -53,11 +62,13 @@ initial
 begin
 //set initial values for temp variable according to number of inputs
 //remove or modify for diff verification modules
-node_counter_max= 9; 	class_counter_max=1 ;       
-node_counter=1 ;     	class_counter=1;     
-////////////////////////////////////////////////////////////////////
+         
+node_counter=1 ;     	
+class_counter=1; 
+Tk=4;                     
+//////////////////////////////////////////////////////////////////// 
 
-learning_recall=LEARNING; 
+learning_recall=LEARNING;  
 reset=1;
 `ifdef DEBUG_MEMOMY_CONTENTS
  $monitor ($time ,"\n ", 
@@ -73,7 +84,7 @@ reset=1;
 
 `endif
  
-#clk_period     
+#(clk_period/2)      
 reset=0; 
 
 
@@ -142,6 +153,7 @@ input_node_set[4][3]=;
 input_node_set[4][4]=;
 input_node_set[4][5]=; 
 */ 
+
 end 
 
 endmodule

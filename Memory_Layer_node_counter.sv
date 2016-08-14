@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 import GAM_package::* ;  
 
 module Memory_Layer_node_counter(

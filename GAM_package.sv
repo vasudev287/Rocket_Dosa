@@ -3,14 +3,18 @@
 
 package GAM_package;
 
-parameter NODE_COUNT=10;
+parameter NODE_COUNT=10; 
 parameter CLASS_COUNT=4;  
 parameter DIMENSION_ROWS=2; 
 parameter DIMENSION_COLUMNS=2;  
 parameter VECTOR_LEN=DIMENSION_ROWS*DIMENSION_COLUMNS;       
 
   
-parameter AGE_MAX=2;                      
+parameter AGE_MAX=2;            
+
+typedef logic[$clog2(NODE_COUNT):1] NODE_INDEX_T; 
+typedef logic[$clog2(CLASS_COUNT):1] CLASS_INDEX_T;        
+          
           
 typedef enum {READ,WRITE} RD_WR_T;  
 typedef enum {LEARNING,RECALL} LEARNING_RECALL_T; 

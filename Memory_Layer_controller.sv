@@ -1,3 +1,5 @@
+`timescale 1ns/1ps 
+
 import GAM_package::* ;  
 
 module Memory_Layer_controller(
@@ -118,6 +120,8 @@ begin
 	end
 connections:
 	{ld_upcounter,en_connection}='1;
+
+default: $display("Memory_Layer_controller: preset_state value is INVALID"); 
 
 endcase
 end
