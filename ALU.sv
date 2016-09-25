@@ -121,15 +121,20 @@ begin
 square = 1;    
 delta=3;    //eleminates warning in line 113  
 begin: sqrt_loop  
-for ( int i =0; i < 4999; i++) // Adding 499 to avoid maximum loop couner . Can also use -max_loop_cnt number 
+for ( int i =0; i < 1000000; i++) // Adding 1000 to avoid maximum loop couner . Can also use -max_loop_cnt number 
 begin 
 square = square + delta;
 delta = delta + 2;
+if (square> a)
+begin 
+disable sqrt_loop; 
+$display("Disbale Branch in sqrt square is %d and a is %d", square,a);
 end 
+end  
+end: sqrt_loop  
 out = (delta/2 - 1);
-if (square <= a)
-disable  sqrt_loop; 
-end: sqrt_loop   
+
+
 end 
 endmodule 
  
